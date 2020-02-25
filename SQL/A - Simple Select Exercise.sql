@@ -1,7 +1,7 @@
 --SIMPLE SELECT EXERCISE 1
 
 USE [A01-School]
-GO
+GO -- Tells server to run the above code as a "batch"
 
 -- Simple Select, without any other clauses
 SELECT  'Dan', 'Gilleland'
@@ -11,7 +11,7 @@ SELECT  'Dan' + ' ' + 'Gilleland', 18 * 52, '5' + '10'
 
 -- Specify a column name with some hard-code/calculated values
 SELECT  'Dan' + ' ' + 'Gilleland' AS 'Instructor',
-        19 * 52 AS 'Weeks at the job'
+        20 * 52 AS 'Weeks at the job'
 
 -- Let's use the SELECT statement with database tables
 
@@ -49,7 +49,7 @@ FROM    Student
 --      and sort the results by the last name
 SELECT    FirstName, LastName
 FROM      Student
-ORDER BY  LastName
+ORDER BY  LastName -- By default, sorting will be in ASCENDING order
 -- 2.d. Select the first and last names of all the students,
 --      and sort the results by the last name, then by the first name
 SELECT    FirstName, LastName
@@ -66,23 +66,28 @@ FROM    Course
 --FROM    Course
 SELECT CourseID, CourseName, CourseHours, MaxStudents, CourseCost
 FROM   Course
-WHERE  CourseID = 'DMIT101'
+WHERE  CourseID = 'DMIT101' -- This will only display the selected columns for this specific course
 
 --5. Select the Staff names who have job positionID of 3
 SELECT FirstName, LastName
-       --,PositionID -- Press [ctrl] + k, then [ctrl] + u to un-comment
+       ,PositionID -- Press [ctrl] + k, then [ctrl] + u to un-comment
 FROM   Staff
-WHERE  PositionID = 3
+WHERE  PositionID = 3 -- Will only display the people who are part of positionID 3
 
         -- BTW, what is PositionID of 3 referring to?
 SELECT  PositionID, PositionDescription
 FROM    Position
 
+-- Explore Intellisense (Using these aliases just shortens things up a bit)
+SELECT  C.ClubId, C.ClubName
+FROM  Club AS C
+
 --6.    Select the Course Names whose course hours are less than 96
 SELECT  C.CourseName
-FROM    Course C -- I can have an alias to the table name
+FROM    Course AS C -- I can have an alias to the table name
 WHERE   C.CourseHours < 96
--- Type with me the following...
+
+
 SELECT  ST.LastName, ST.DateHired, ST.DateReleased
 FROM    Staff AS ST -- The use of the AS keyword in producing table/column aliases is optional
                     -- but it can be a good idea for readability.
@@ -106,6 +111,7 @@ WHERE   WithdrawYN IS NULL -- we use IS NULL instead of = NULL, because = NULL w
 
 -- 7.b. Select the student ids of students who have withdrawn from a course
 SELECT  StudentID
+		, WithdrawYN
 FROM    Registration
 WHERE   WithdrawYN = 'Y'
 
@@ -122,7 +128,7 @@ WHERE   R.Mark BETWEEN 70 AND 80
   AND   R.CourseId IN ('DMIT223', 'DMIT168') -- The IN keyword allows us to have a list of values
                                              -- that will be checked in a OR manner.
 
---8.a. Select the studentIDs, CourseID and mark where the Mark is 80 and 85
+--8.a. Select the studentIDs, CourseID and mark where the Mark is 80 and 85 (If it's worded like this, it will sometimes means OR)
 SELECT  R.StudentID, R.CourseId, R.Mark
 FROM    Registration R
 WHERE   R.Mark = 80 OR R.Mark = 85
@@ -143,9 +149,21 @@ WHERE   CourseID LIKE '____1%' -- four underscores, 1, %
 --                     DMIT158
 
 --11. Select the CourseID's and CourseNames where the CourseName contains the word 'programming'
+SELECT	CourseName, CourseID
+FROM	Course
+WHERE	CourseName LIKE 'programming%' OR CourseName LIKE '%programming'
 
 --12. Select all the ClubNames who start with N or C.
+SELECT	ClubName
+FROM	Club
+WHERE	ClubName LIKE 'N%' OR ClubName LIKE 'C%'
 
 --13. Select Student Names, Street Address and City where the lastName is only 3 letters long.
+SELECT	FirstName, LastName, StreetAddress, City
+FROM	Student
+WHERE	LastName Like 'Aa%, Aa%, Aa%'
 
 --14. Select all the StudentID's where the PaymentAmount < 500 OR the PaymentTypeID is 5
+SELECT	StudentID, Amount, PaymentTypeID
+FROM	Payment
+WHERE	Amount < 500.00 OR PaymentTypeID = 5
