@@ -20,6 +20,8 @@ FROM    Registration
 SELECT  AVG(Mark) AS 'Average Mark' -- Some Aggregate functions expect to work with numbers
 FROM    Registration
 WHERE   CourseId = 'DMIT104'
+-- Exploring - What are all the marks in Registration?
+-- SELECT * FROM Registration ORDER BY CourseID
 
 --3.	Select how many students are there in the Student Table
 SELECT  COUNT(FirstName) AS 'Student Count'
@@ -57,19 +59,28 @@ WHERE   CourseId = 'DMIT152'
 
 --5.	Select the average payment amount for payment type 5
 -- TODO: Student Answer Here - Hint: It's in the Payment table....
+SELECT	AVG(Amount) AS 'Average Amount for Payment Type 5'
+FROM	Payment
+WHERE	PaymentTypeID = '5'
 
 
 -- Given that there are some other aggregate methods like MAX(columnName) and MIN(columnName), complete the following two questions:
 --6. Select the highest payment amount
 -- TODO: Student Answer Here
+SELECT	MAX(Amount) AS 'Highest Payment Amount'
+FROM	Payment
 
 
 --7.	 Select the lowest payment amount
 -- TODO: Student Answer Here
+SELECT	MIN(Amount) AS 'Lowest Payment Amount'
+FROM	Payment
 
 
 --8. Select the total of all the payments that have been made
 -- TODO: Student Answer Here
+SELECT SUM(Amount) AS 'Total Payments'
+FROM   Payment
 
 --9. How many different payment types does the school accept?
 -- Do a bit of exploratory selects
