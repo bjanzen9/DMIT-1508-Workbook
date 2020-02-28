@@ -15,7 +15,7 @@ SELECT  PositionDescription,
 FROM    Position P
     LEFT OUTER JOIN Staff S ON P.PositionID = S.PositionID
 GROUP BY P.PositionDescription
--- but -- The following version gives the WRONG results, so just DON'T USE *  !
+-- but -- The following version gives the WRONG results, so just DON'T USE *  ! (Only use * for exploring tables, don't use for anything else)
 SELECT PositionDescription, 
        Count(*) -- this is counting the WHOLE row (not just the Staff info)
 FROM   Position P
@@ -41,6 +41,12 @@ FROM    Student S
 GROUP BY FirstName, LastName
 --5. How many students are in each club? Display club name and count.
 -- TODO: Student Answer Here...
+SELECT ClubId,
+	   COUNT(StudentID) AS 'Number of Students'
+
+
+
+
 
 --6. How many times has each course been offered? Display the course ID and course name along with the number of times it has been offered.
 -- TODO: Student Answer Here...
