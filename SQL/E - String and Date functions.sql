@@ -16,8 +16,8 @@ GO
     ORDER BY 1 -- sorted by the first column
 
 	-- SUBSTRING
-	SELECT SUBSTRING('Hello World', 1, 2)
-	SELECT SUBSTRING('To be or not to be', 10, 3)
+	SELECT SUBSTRING('Hello World', 1, 2) --This will show the first 2 digits of the word that is at the 1st index
+	SELECT SUBSTRING('To be or not to be', 10, 3) --This will show the word that is the 10th index and is 3 digits long ("not")
 	-- REVERSE
     SELECT REVERSE('Dan')
     -- (Club whose id is a palindrome)
@@ -25,11 +25,12 @@ GO
     -- INSERT INTO Club(ClubId, ClubName) VALUES ('ABCBA', 'Active Bat Catching Brotherhood Assoc.')
 	SELECT	ClubId, ClubName
 	FROM	Club
-	WHERE   ClubId = REVERSE(ClubId)
+	WHERE   ClubId = REVERSE(ClubId) --This will show a Club Name that is spelt the same way both ways
 	-- Modifying
 		-- LTRIM, RTRIM -- To remove whitespace from the left or the right
 		-- UPPER, LOWER -- Return upper and lower characters
-
+	SELECT CHARINDEX(' ', 'Hello World') --This is for selecting the character index of Hello World. Selecting the index where the first space occurs
+										 --In this case it would be 6
 -- Date Functions
 	-- GETDATE()
 	SELECT GETDATE() AS 'Database Server- Current Date/Time'
@@ -71,16 +72,16 @@ WHERE   FirstName = 'Tess'
 -- 2a. How long have I worked for this school??
 SELECT  DATEDIFF(dd, 'Jan 1, 2000', GETDATE())
 
--- 3. How Many Students where born in each month? Display the Month Name and the Number of Students.
-SELECT  DATENAME(mm, Birthdate) AS 'Month Name',
-        COUNT(1) AS 'Number of Students'
+-- 3. How Many Students were born in each month? Display the Month Name and the Number of Students.
+SELECT  DATENAME(mm, Birthdate) AS 'Month Name',	--Non-aggregate
+        COUNT(1) AS 'Number of Students'			--Aggregate
 FROM    Student
-GROUP BY DATENAME(mm, Birthdate)
+GROUP BY DATENAME(mm, Birthdate)					--Group by the non-aggregates
 
 -- 4. Select the Names of all the students born in December.
-SELECT  FirstName, LastName
-FROM    Student
-WHERE   DATENAME(mm, Birthdate) = 'December'
+SELECT  FirstName, LastName --Selecting the first and last names of the students
+FROM    Student --From Student table
+WHERE   DATENAME(mm, Birthdate) = 'December' --Where the birth month is December
 
 -- 5. Select all the course names that have grades from 2004. NOTE: the first 4 characters of the semester indicate the year.
 SELECT  DISTINCT
@@ -91,17 +92,20 @@ WHERE   Mark IS NOT NULL
   AND   LEFT(Semester, 4) = 2004
 
 -- 6. select last three characters of all the courses
-
+SELECT RIGHT(CourseName, 3) AS 'Last 3 Digits'
+FROM Course
 
 -- 7. Select the characters in the position description from characters 8 to 13 for PositionID 5
-
-
+SELECT LEFT(PositionDescription, 8 - 13)
+FROM Position
+WHERE PositionID = '5'
 -- 8. Select all the Student First Names as upper case.
 
 
 -- 9. Select the First Names of students whose first names are 3 characters long.
-
-
+SELECT LEFT(FirstName, 3) AS 'Staff Initials'
+    FROM   Student
+    ORDER BY 1
 /* ************************************************
     String Functions
     ================
