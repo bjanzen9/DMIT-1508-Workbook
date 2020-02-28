@@ -3,18 +3,27 @@ USE [A01-School]
 GO
 
 --1. How many staff are there in each position? Select the number and Position Description
-SELECT  PositionDescription,                    --  <-- non-aggregate
+-- Exporation
+SELECT PositionID, PositionDescription FROM Position
+SELECT FirstName + ' ' + LastName, PositionID FROM Staff
+-- Show the data when joined
+SELECT PositionDescription, FirstName + ' ' + LastName
+FROM Staff AS S
+	INNER JOIN Position AS P
+		ON S.PositionID = P.PositionID
+SELECT  PositionDescription,                    --  <-- non-aggregate ]
         COUNT(S.StaffID) AS 'Number of Staff'   --  <-- aggregate
 FROM    Staff AS S
-    INNER JOIN Position AS P ON P.PositionID = S.PositionID
+    INNER JOIN Position AS P ON P.PositionID = S.PositionID					--Selecting both of these SELECTS will show that the Assistant Dean has nobody working in it
 GROUP BY PositionDescription 
  
 -- Out of curiosity, what are all the position names?
-SELECT  PositionDescription FROM Position -- There are 7 positions...
+SELECT  PositionDescription FROM Position -- There are 7 positions... ]
 -- but I only see 6 positions in the answer to Q1.
 -- That's because I'm using an INNER JOIN, and data has to be present
 -- in BOTH tables for it to be included.
 -- Which position does not have staff? For that answer, you'll have to wait for the OUTER JOIN.
+--(Assistant Dean doesn't have any staff!)
 
 --2. Select the average mark for each course. Display the CourseName and the average mark. Sort the results by average in descending order.
 SELECT  CourseName, AVG(Mark) AS 'Average Mark'
@@ -24,7 +33,11 @@ GROUP BY CourseName
 ORDER BY 'Average Mark' DESC
 
 --3. How many payments where made for each payment type. Display the PaymentTypeDescription and the count.
- -- TODO: Student Answer Here... 
+ -- TODO: Student Answer Here...
+ SELECT PaymentTypeDescription, COUNT(Amount) AS 'Total Payments For Each Payment Type'
+ FROM Payment AS P
+	INNER JOIN PaymentType AS PT ON P.PaymentTypeID = PT.PaymentTypeID
+ GROUP BY PaymentTypeDescription
 
  
 --4. Select the average Mark for each student. Display the Student Name and their average mark. Use table aliases in your FROM & JOIN clause.
