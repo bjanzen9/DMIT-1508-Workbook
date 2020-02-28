@@ -84,10 +84,13 @@ FROM   Payment
 
 --9. How many different payment types does the school accept?
 -- Do a bit of exploratory selects
-SELECT PaymentTypeDescription
-FROM   PaymentType
 -- TODO: Student Answer Here
+SELECT COUNT(PaymentTypeID) AS 'Different Payment Types'
+FROM   PaymentType
 
 --10. How many students are in club 'CSS'?
 -- TODO: Student Answer Here
+SELECT COUNT(StudentID)
+FROM Activity
+WHERE ClubId = 'CSS'
 
