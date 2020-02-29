@@ -84,6 +84,10 @@ FROM   Payment
 
 --9. How many different payment types does the school accept?
 -- Do a bit of exploratory selects
+-- Exploration
+SELECT PaymentTypeID AS 'All Payment Types',
+	   PaymentTypeDescription AS 'Payment Type Description'
+FROM PaymentType
 -- TODO: Student Answer Here
 SELECT COUNT(PaymentTypeID) AS 'Different Payment Types'
 FROM   PaymentType
