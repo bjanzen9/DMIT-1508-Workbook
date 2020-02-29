@@ -12,8 +12,8 @@ SELECT  CourseId, Mark
 FROM    Registration
 ORDER BY CourseId
 --  Answer to #1
-SELECT  CourseId,                   -- This column is a non-aggregate
-        AVG(Mark) AS 'Average Mark' -- This column performs Aggregate (produce 1 value)
+SELECT  CourseId,                   -- This column is a non-aggregate (Data that isn't combined or added together for a sum, identifier only)
+        AVG(Mark) AS 'Average Mark' -- This column performs Aggregate (produce 1 value) --Marks can be added or subtracted together so they would be aggregate
 FROM    Registration
 GROUP BY CourseId                   -- Group by the non-aggregate columns
 -- When performing an Aggregate function in the SELECT clause, if you have any other 
@@ -74,10 +74,16 @@ GROUP BY PaymentTypeID
 
 -- 8. How many students are there in each club? Show the clubID and the count
 -- TODO: Student Answer Here....
+-- Exploration
+SELECT	ClubId, StudentID
+FROM	Activity
 
--- Check your answer by manually grouping students by their club membership and counting them
-SELECT  ClubId, StudentID
-FROM    Activity
+-- Answer
+SELECT COUNT(StudentID) AS 'Student ID',
+			ClubId AS 'Club ID'
+FROM Activity
+GROUP BY ClubId
+
 
 -- 9. Which clubs have 3 or more students in them?
 -- TODO: Student Answer Here....
