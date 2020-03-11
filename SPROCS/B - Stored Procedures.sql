@@ -57,6 +57,12 @@ AS
 RETURN
 GO
 
+-- Demo/Test Store Procedure
+EXEC AddClub 'CLUB', 'Central Library of Unused Books' -- Testing with "good" data
+-- Imagine that the sproc is called with !bad! data...
+EXEC AddClub null, 'Gotcha'
+EXEC AddClub 'OOPS', null
+GO
 
 -- 1.b. Modify the AddClub procedure to ensure that the club name and id are actually supplied. Use the RAISERROR() function to report that this data is required.
 ALTER PROCEDURE AddClub
@@ -65,9 +71,13 @@ ALTER PROCEDURE AddClub
     @ClubName   varchar(50)
 AS
     -- Body of procedure here
-    IF @ClubId IS NULL OR @ClubName IS NULL
+	-- I validate by finding out if the data is poor. If so, then I report the problem.
+    IF @ClubId IS NULL OR @ClubName IS NULL -- When the IF statement is hit and the question is asked, the result is either going to be true (flows to true side) or false (flows to false side) but then will flow together and continue at the end (The reason it's called Flow Control)
     BEGIN
-        RAISERROR('Club ID and Name are required', 16, 1)
+        RAISERROR('Club ID and Name are required', 16, 1) -- Just reports an error about what has happened
+		-- The 16 is the error number (we are constrained to a range of numbers)
+		-- The 1 is the severity of the error
+		-- We can always use the 16, 1
     END
     ELSE
     BEGIN
