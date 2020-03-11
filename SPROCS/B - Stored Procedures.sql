@@ -1,6 +1,28 @@
 -- Stored Procedures (Sprocs)
 -- Validating Parameter Values
 
+
+/*
+We can validate parameter values using IF/ELSE statements. An IF/ELSE statement is called a "flow-control" statement because it controls whether or not another statement (or statment block) will execute. The grammar of the IF/ELSE statement is as follows:
+
+IF (conditional_expression)
+	Statment_or_StatementBlock -- True Side
+ELSE
+	Statment_or_StatementBlock -- False Side
+
+Where the conditional_expression is some kind of expression that results in a boolean
+(TRUE/FALSE) value, and Statement_or_StatementBlock is a single item that is executed on either side the true or false side of the IF/ELSE statement.
+A "Statement Block" is one or more statements inside of a pair of BEGIN/END keywords.
+For example, the following statement block consists of two statements (an INSERT and a SELECT), but it can be considered a single "block" of statements:
+
+BEGIN
+	INSERT INTO SomeTable(Some, Column, Names)
+	VALUES (@Some, @Parameters, @Values)
+	SELECT @@IDENTITY -- to get the generated primary key
+END
+
+*/
+
 USE [A01-School]
 GO
 
