@@ -67,6 +67,7 @@ GO
 -- 1.b. Modify the AddClub procedure to ensure that the club name and id are actually supplied. Use the RAISERROR() function to report that this data is required.
 ALTER PROCEDURE AddClub
     -- Parameters here
+	-- In SQL the variables/parameter names ALWAYS start with the @ symbol (Helps to identify it as being a temporary object used for storing values and will be tossed later on)
     @ClubId     varchar(10),
     @ClubName   varchar(50)
 AS
@@ -85,6 +86,10 @@ AS
         VALUES (@ClubId, @ClubName)
     END
 RETURN
+GO
+
+EXEC AddClub null, 'Gotcha'
+EXEC AddClub 'OOPS', null
 GO
 
 -- 2. Make a stored procedure that will find a club based on the first two or more characters of the club's ID. Call the procedure "FindStudentClubs"
@@ -199,7 +204,13 @@ GO
 
 
 -- 5. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
-
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'RemoveFromClub')
+	DROP PROCEDURE RemoveFromClub
+GO
+CREATE PROCEDURE RemoveFromClub
+	@StudentID		int
+AS
+	IF 
 
 -- Query-based Stored Procedures
 -- 6. Create a stored procedure that will display all the staff and their position in the school.
